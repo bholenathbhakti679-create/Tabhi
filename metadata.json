@@ -1,0 +1,6 @@
+{
+  "name": "Tabahi",
+  "description": "Premium JEE & NEET CBT Test Series Simulator with NTA Exam UI, AI Power Questions, 3D Splash, Error Log Book with Voice Notes, and Diamond Rewards.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

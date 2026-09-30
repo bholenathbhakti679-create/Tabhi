@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- Sparkles and stars -->
+    <path
+        android:fillColor="#FFF9C4"
+        android:pathData="M38,55 L40,51 L42,55 L46,57 L42,59 L40,63 L38,59 L34,57 Z" />
+    <path
+        android:fillColor="#FFE082"
+        android:pathData="M69,49 L70,46 L71,49 L74,50 L71,51 L70,54 L69,51 L66,50 Z" />
+    <path
+        android:fillColor="#FFF59D"
+        android:pathData="M62,28 L63,25 L64,28 L67,29 L64,30 L63,33 L62,30 L59,29 Z" />
+
+    <!-- Pencil base and tip rocket -->
+    <path
+        android:fillColor="#FFF8E1"
+        android:pathData="M50,68 L58,68 L54,82 Z" />
+    <path
+        android:fillColor="#FFB300"
+        android:pathData="M52,75 L56,75 L54,82 Z" />
+    <path
+        android:fillColor="#37474F"
+        android:pathData="M53.3,79.5 L54.7,79.5 L54,82 Z" />
+
+    <!-- Golden checkmark arrow pointing up-right -->
+    <path
+        android:fillColor="#FFD54F"
+        android:pathData="M60,47 L67,40 L73,46 L82,26 L70,28 L74,32 L67,40 L60,47 Z" />
+    <path
+        android:fillColor="#FFA000"
+        android:pathData="M78,25 L86,23 L84,31 L80.5,27.5 L73,35 L70.5,32.5 L78,25 Z" />
+
+    <!-- Swoosh trails / wings behind body -->
+    <path
+        android:fillColor="#FFFDE7"
+        android:pathData="M50,33 C40,34 30,40 23,48 C28,45 35,42 42,42 C36,45 31,50 28,56 C33,52 40,49 46,48 Z" />
+
+    <!-- Leaping Stickman Body (White) -->
+    <!-- Head -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,34 A5.5,5.5 0 1,0 54,23 A5.5,5.5 0 1,0 54,34 Z" />
+    <!-- Torso and launching limbs -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M52,35 C54,35 56,36 57,38 L68,32 C69.5,31 71,33 70,35 L61,43 C60,44 58,45 56,45 L54,54 L63,55 C65,55 66,57 65,59 L54,72 C53,73 51,73 50.5,71.5 L49,60 C46,65 42,73 37,79 C35.5,80.5 33.5,78.5 35,76 C41,67 46,55 49,46 L46,45 C43,45 39,47 34,51 C32.5,52 31,50 32,49 C37,42 44,37 52,35 Z" />
+</vector>

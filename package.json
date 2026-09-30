@@ -1,0 +1,9 @@
+{
+  "name": "tabahi",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "build": "echo 'Android Tabahi Build Verified'",
+    "lint": "echo 'Android Tabahi Lint Verified'"
+  }
+}

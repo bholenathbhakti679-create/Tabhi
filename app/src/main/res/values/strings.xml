@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Tabahi</string>
+    <string name="tabahi_tagline">Peak Intelligence JEE &amp; NEET CBT Test Series</string>
+    <string name="diamonds_reward">Diamonds</string>
+    <string name="error_log_book">Galti Diary / Error Notebook</string>
+    <string name="cbt_test_simulator">NTA CBT Simulator</string>
+    <string name="ai_mentor">Tabahi AI Mentor</string>
+</resources>
