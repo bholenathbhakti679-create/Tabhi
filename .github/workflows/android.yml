@@ -20,30 +20,57 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        cache: gradle
 
-    - name: Ensure Gradle Wrapper and Properties Exist
+    - name: Locate and Prepare Android Project
       run: |
+        echo "=== Checking repository files ==="
+        ls -la
+
+        # Agar settings.gradle.kts root mein na ho toh subfolder dhoondho
+        if [ ! -f "settings.gradle.kts" ] && [ ! -f "settings.gradle" ]; then
+          echo "settings.gradle.kts not found in root. Searching subdirectories..."
+          FOUND_FILE=$(find . -maxdepth 3 -name "settings.gradle*" | head -n 1)
+          if [ -n "$FOUND_FILE" ]; then
+            SUBDIR=$(dirname "$FOUND_FILE")
+            echo "Found Android project inside: $SUBDIR"
+            echo "Copying files to root..."
+            cp -r "$SUBDIR"/. . || true
+          else
+            echo "::error::CRITICAL: settings.gradle.kts is missing! Project source files are not in this GitHub repository."
+            exit 1
+          fi
+        fi
+
+        # Ensure gradle wrapper and properties exist
         mkdir -p gradle/wrapper
         if [ ! -f gradle/wrapper/gradle-wrapper.properties ]; then
-          echo "distributionBase=GRADLE_USER_HOME" > gradle/wrapper/gradle-wrapper.properties
-          echo "distributionPath=wrapper/dists" >> gradle/wrapper/gradle-wrapper.properties
-          echo "distributionUrl=https\://services.gradle.org/distributions/gradle-9.3.1-bin.zip" >> gradle/wrapper/gradle-wrapper.properties
-          echo "networkTimeout=10000" >> gradle/wrapper/gradle-wrapper.properties
-          echo "validateDistributionUrl=true" >> gradle/wrapper/gradle-wrapper.properties
-          echo "zipStoreBase=GRADLE_USER_HOME" >> gradle/wrapper/gradle-wrapper.properties
-          echo "zipStorePath=wrapper/dists" >> gradle/wrapper/gradle-wrapper.properties
+          echo "Creating gradle-wrapper.properties..."
+          cat << 'EOF' > gradle/wrapper/gradle-wrapper.properties
+        distributionBase=GRADLE_USER_HOME
+        distributionPath=wrapper/dists
+        distributionUrl=https\://services.gradle.org/distributions/gradle-9.3.1-bin.zip
+        networkTimeout=10000
+        validateDistributionUrl=true
+        zipStoreBase=GRADLE_USER_HOME
+        zipStorePath=wrapper/dists
+        EOF
         fi
+
         if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
           curl -s -L -o gradle/wrapper/gradle-wrapper.jar https://raw.githubusercontent.com/gradle/gradle/v8.10.2/gradle/wrapper/gradle-wrapper.jar || true
         fi
-        chmod +x gradlew
+
+        chmod +x gradlew || true
+
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v3
 
     - name: Build Debug APK
-      run: ./gradlew assembleDebug --stacktrace
+      run: ./gradlew assembleDebug --stacktrace --no-daemon
 
     - name: Upload Debug APK
       uses: actions/upload-artifact@v4
+      if: success()
       with:
         name: Tabahi-debug-apk
         path: app/build/outputs/apk/debug/*.apk
