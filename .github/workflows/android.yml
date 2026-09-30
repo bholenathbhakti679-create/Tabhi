@@ -23,7 +23,7 @@ jobs:
 
     - name: Restore Missing Gradle Files
       run: |
-        echo "=== Checking and restoring Gradle files ==="
+        echo "=== Preparing all Gradle and Android build files ==="
         
         # 1. Auto-create settings.gradle.kts if missing
         if [ ! -f "settings.gradle.kts" ]; then
@@ -59,7 +59,7 @@ EOF
           echo "Created settings.gradle.kts"
         fi
 
-        # 2. Auto-create build.gradle.kts if missing
+        # 2. Auto-create build.gradle.kts (root) if missing
         if [ ! -f "build.gradle.kts" ]; then
           cat << 'EOF' > build.gradle.kts
 plugins {
@@ -108,8 +108,20 @@ EOF
           curl -s -L -o gradle/wrapper/gradle-wrapper.jar https://raw.githubusercontent.com/gradle/gradle/v8.10.2/gradle/wrapper/gradle-wrapper.jar || true
         fi
 
+        # 5. Create debug.keystore if missing for debugConfig
+        if [ ! -f "debug.keystore" ]; then
+          echo "Generating debug.keystore for signingConfig..."
+          keytool -genkey -v -keystore debug.keystore -storepass android -alias androiddebugkey -keypass android -keyalg RSA -keysize 2048 -validity 10000 -dname "CN=Android Debug,O=Android,C=US" || true
+        fi
+
+        # 6. Ensure .env exists
+        if [ ! -f ".env" ]; then
+          touch .env
+        fi
+
         chmod +x gradlew || true
-        echo "=== All Gradle files prepared ==="
+        echo "=== All build files prepared and verified ==="
+        ls -la
 
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v3
